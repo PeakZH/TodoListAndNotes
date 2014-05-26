@@ -1,2 +1,4 @@
 1. npm install --registry=http://r.cnpmjs.org 
+or npm install --registry=http://registry.npm.taobao.org
+
 2. node app.js or supervisor app.js for debug
