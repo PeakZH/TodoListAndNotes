@@ -1,17 +1,4 @@
-/**
- * Module dependencies.
- * TODO:
- * 1 add web api for android(rest api?)
- * 2 add a shell script for backup files in kuaipan
- * 3 search todo list function
- * 4 category 分类模块
- *
- * bug:
- * 1.页面有操作session过期
- *
- *
- * 最后更新时间:14.5.26
- */
+
 process.env.NODE_ENV = process.env.NODE_ENV || "dev";
 var express = require('express.io');
 
