@@ -1,0 +1,49 @@
+<%- include ../comm/header %>
+<%- include ../comm/nav %>
+<script type="text/javascript" src="/js/jsdirectory/oaworklist-js.js"></script>
+<div class="container" >
+  <div  >
+    <div  >
+      <div  >
+        <div >
+          <table id="listResult" class="table table-hover">
+            <thead>
+              <tr>
+              	<th>序号</th>
+                <th>内容</th>
+              <!--  <th>状态</th> -->
+                <th>创建时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% result.OAWorkLists.forEach(function (OAWorkList, index) { %>
+              <tr >
+              	<td><%= index+1 %></td>
+                <td><%- OAWorkList.content %>
+                 	<button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= OAWorkList.id %> >DONE</button>
+	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= OAWorkList.id %> content='<%= OAWorkList.content %>' >修改</button>
+                </td>
+             <!--   <td><%= OAWorkList.status %></td> -->
+                <td><%= OAWorkList.createTime %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel-body">
+    <button type="button" id="popAddList" class="btn btn-outline btn-primary">添加OALists</button>
+  </div>
+</div>
+<div id="addRuleBlock" style="display:none;">
+  <form id="addListForm" method="post">
+    <input type="hidden"  name="id" />
+   <!-- <input type="text" placeholder="内容" name="content" required="true" class="form-control"/> -->
+    <textarea rows="6" placeholder="内容" id="content" required="true" class="form-control"></textarea>
+  </form>
+</div>
+<%- include ../comm/footer %>

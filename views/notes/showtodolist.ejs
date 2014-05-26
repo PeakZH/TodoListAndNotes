@@ -1,0 +1,59 @@
+<%- include ../header %>
+<%- include ../nav %>
+<script type="text/javascript" src="/js/jsdirectory/cal.js"></script>
+<div class="container" >
+  <div  >
+    <div  >
+      <div  >
+        <div >
+          <table id="listResult" class="table table-hover">
+            <thead>
+              <tr>
+              	<th>序号</th>
+                <th>发送间隔(s)</th>
+                <th>最大次数</th>
+                <th>扫描间隔(s)</th>
+                <th>创建时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% result.rules.forEach(function (rule, index) { %>
+              <tr >
+              	<td><%= index+1 %></td>
+                <td><%= rule.sendInterval %></td>
+                <td><%= rule.maxCount %></td>
+                <td><%= rule.scanInterval %></td>
+                <td><%= rule.createTime %></td>
+                <td><button type="button" class="btn btn-outline btn-warning btn-xs" porpertyId=<%= rule.id %> >删除</button></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel-body">
+    <button type="button" id="popAddRule" class="btn btn-outline btn-primary">添加规则</button>
+  </div>
+</div>
+<div id="addRuleBlock" style="display:none;">
+  <form id="addRuleForm" method="post">
+    <%/*
+    <div class="form-heading">
+      <h2>短信熔断规则</h2>
+    </div>
+    */%>
+    <input type="text" placeholder="发送次数" name="maxCount" required="true" class="form-control"/>
+    <input type="text" placeholder="发送间隔(秒)" name="sendInterval" required="true" class="form-control"/>
+    <input type="text" placeholder="扫描间隔(秒)" name="scanInterval" required="true" class="form-control"/>
+ 	<!-- <button type="button" id="addRule" class="btn btn-lg btn-primary btn-block">添加</button> -->
+    <div id="result">
+      <%= (result.result || "") %>
+    </div>
+  </form>
+</div>
+<%- include ../footer %>

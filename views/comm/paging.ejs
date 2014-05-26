@@ -1,0 +1,15 @@
+<% if (result.paging) { %>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+      <ul class="pagination">
+        <li class="paginate_button disabled" aria-controls="dataTables-example" tabindex="0"><a href="javascript:void(0);">第<%= result.paging.pageNo %>页 共<%= result.paging.totalPage %>页 <%= result.paging.totalCount %>条</a></li>
+        <li class="paginate_button previous <% if (result.paging.pageNo <= 1) { %> disabled <% } %>" aria-controls="dataTables-example" tabindex="0"><a href="javascript:gotoPage(1);">First</a></li>
+        <li class="paginate_button previous <% if (result.paging.pageNo <= 1) { %> disabled <% } %>" aria-controls="dataTables-example" tabindex="0"><a href="javascript:gotoPage(<%= result.paging.pageNo - 1 %>);">Previous</a></li>
+        <li class="paginate_button next <% if (result.paging.pageNo >= result.paging.totalPage) { %> disabled <% } %>" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="javascript:gotoPage(<%= parseInt(result.paging.pageNo) + 1 %>);">Next</a></li>
+        <li class="paginate_button next <% if (result.paging.pageNo >= result.paging.totalPage) { %> disabled <% } %>" aria-controls="dataTables-example" tabindex="0"><a href="javascript:gotoPage(<%= result.paging.totalPage %>);">Last</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<% } %>

@@ -1,0 +1,17 @@
+<%- include ../comm/header %>
+<form method="post" class="form-signin">
+  <div class="form-heading">
+    <h2>dailyWork</h2>
+  </div>
+  <input type="hidden" name="returnurl" value="<%= (result.returnurl || "") %>"/>
+  <label class="control-label" name="name" >用户名</label>
+  <input type="text" placeholder="用户名" name="name" required="true" autofocus="true" class="form-control" value="<%= (result.name || "") %>"/>
+  <label class="control-label" name="name">密码</label>
+  <input type="password" placeholder="密码" name="password" required="true" class="form-control" value="<%= (result.password || "") %>"/>
+  <lable class="checkbox"> 记住我<input type="checkbox" name="rememberme" value="<%= (result.rememberme || "") %>"/></lable>
+  <button type="submit" class="btn btn-lg btn-primary btn-block">登录</button>
+  <%/*
+  <a href="/user/reg" class="link">注册</a>
+  */%>
+</form>
+<%- include ../comm/footer %>

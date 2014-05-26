@@ -1,0 +1,14 @@
+<%- include ../comm/header %>
+<form method="post" class="form-signin">
+  <div class="form-heading">
+    <h2>dailyWorky</h2>
+  </div>
+  <input type="text" placeholder="用户名" name="name" required="true" autofocus="true" class="form-control" value="<%= (result.name || "") %>"/>
+  <input type="password" placeholder="密码" name="password" required="true" class="form-control" value="<%= (result.password || "") %>"/>
+  <input type="password" placeholder="确认密码" name="passwordRepeat" required="true" class="form-control" value="<%= (result.passwordRepeat || "") %>"/>
+  <button type="submit" class="btn btn-lg btn-primary btn-block">注册</button>
+  <%/*
+  <a href="/user/login" class="link">登录</a>
+  */%>
+</form>
+<%- include ../comm/footer %>

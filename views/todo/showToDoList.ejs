@@ -1,0 +1,56 @@
+<%- include ../comm/header %>
+<%- include ../comm/nav %>
+<script type="text/javascript" src="/js/jsdirectory/todolist-js.js"></script>
+<div class="container" >
+  <div  >
+    <div  >
+      <div  >
+        <div >
+          <table id="listResult" class="table table-hover">
+            <thead>
+              <tr>
+              	<th>序号</th>
+                <th>内容</th>
+              <!--  <th>状态</th> -->
+               <!-- <th>修改时间</th> -->
+                <th>创建时间</th>
+              <!--  <th>操作</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <% result.todolists.forEach(function (todolist, index) { %>
+              <tr >
+              	<td><%= index+1 %></td>
+                <td><%- todolist.content %>
+	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= todolist.id %> >DONE</button>
+	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= todolist.id %> content='<%= todolist.content %>' >修改</button>
+                </td>
+              <!--  <td><%= todolist.status %></td> -->
+              <!--  <td><%= todolist.modifyTime %></td> -->
+                <td><%= todolist.createTime %></td>
+             <!--   <td>
+                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= todolist.id %> >DONE</button>
+                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= todolist.id %> content='<%= todolist.content %>' >修改</button>
+                </td> -->
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel-body">
+    <button type="button" id="popAddList" class="btn btn-outline btn-primary">添加todolist</button>
+  </div>
+</div>
+<div id="addRuleBlock" style="display:none;">
+  <form id="addListForm" method="post">
+    <input type="hidden"  name="id" />
+   <!-- <input type="text" placeholder="内容" name="content" required="true" class="form-control"/> -->
+    <textarea rows="6" placeholder="内容" id="content" required="true" class="form-control"></textarea>
+  </form>
+</div>
+<%- include ../comm/footer %>

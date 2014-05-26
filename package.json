@@ -1,0 +1,23 @@
+{
+  "name": "Ynode",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express.io": "*",
+    "ejs": "*",
+    "ssh2": "*",
+    "mongodb": "*",
+    "connect-mongo": "*",
+    "connect-flash": "*",
+    "generic-pool": "*",
+    "mysql": "*",
+    "request": "*",
+    "merge": "*",
+    "tail":"*",
+    "events":"*",
+    "moment":"*"
+  }
+}

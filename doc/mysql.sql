@@ -1,0 +1,67 @@
+create database node_test;
+--
+--笔记表
+CREATE TABLE
+    TBL_RF_NOTE_LIST
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        title VARCHAR(128),
+        DATE DATE,
+        CONTENT VARCHAR(2048),
+        namespace VARCHAR(64),
+        category VARCHAR(64),
+        TOPFLAG INT,
+        MODIFY_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CREATE_TIME TIMESTAMP DEFAULT '0000-00-00 00:00:00',
+        PRIMARY KEY (id)
+    );
+
+
+--namespace表
+CREATE TABLE
+    TBL_RF_NAMESPACE
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        NAMESPACE VARCHAR(64),
+        CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+    );
+
+
+--category表
+CREATE TABLE
+    TBL_RF_CATEGORY
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        CATEGORY VARCHAR(64),
+        CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        namespace_id bigint,
+        PRIMARY KEY (id)
+    );
+
+
+--todo表
+CREATE TABLE
+    TBL_RF_TODO_LIST
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        CONTENT VARCHAR(1024),
+        status VARCHAR(16) NOT NULL,
+        MODIFY_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        CREATE_TIME TIMESTAMP DEFAULT '0000-00-00 00:00:00',
+        namespace VARCHAR(64),
+        PRIMARY KEY (id)
+    );
+    
+
+--oa work表
+CREATE TABLE
+    TBL_RF_OA_LIST
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        namespace VARCHAR(64),
+        CONTENT VARCHAR(1024),
+        status VARCHAR(16) NOT NULL,
+        CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+    );

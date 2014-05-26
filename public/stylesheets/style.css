@@ -1,0 +1,52 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  width: 500px;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.checkbox {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+input, button {
+  margin: 5px !important;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#tip {
+  position: absolute;
+  color: red;
+  top: 0;
+  right: 0;
+  z-index: 20000;
+  text-align: right;
+  width: 200px;
+}
+
+#console {
+  margin: 5px 50px;
+  border: 1px dashed gray;
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+#console ul {
+  width: 100%;
+}
+
+#console li {
+  text-align: left;
+  list-style: none;
+}
+
+.loading {
+  margin-left: 40px;
+}

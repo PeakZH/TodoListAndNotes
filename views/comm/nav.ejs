@@ -1,0 +1,30 @@
+<div role="navigation" class="navbar navbar-default navbar-fixed-top" style="z-index:2;">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar">123</span>
+            </button><a href="/" class="navbar-brand">DailyWork</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ui class="nav navbar-nav" style="width:90%">
+                <% if (user && user.name!='guest') { %>
+                  <li><a title="OA ToDoList" href="/oa-work/showOAWorkList">OA</a></li>
+                  <li><a title="Company ToDoList" href="/todolist/showToDoList">toDoList</a></li>
+                  <li><a title="notes" href="/notes/showNoteList">notes</a></li>
+                  <li><a title="Person ToDoList" href="/todolist/showPersonToDoList">personToDoList</a></li>
+                  <li><a title="weeklyReport" href="/">weeklyReport</a></li>
+		 		  <li style="float:right;"><a title="登出" href="/user/logout">Logout</a></li>
+                  <li style="float:right;"><a>欢迎，<%=  (user.name || "") %></a></li> 
+                <% } else { %>
+                  <li><a title="OA ToDoList" href="/oa-work/showOAWorkList">OA</a></li>
+                  <li><a title="Company ToDoList" href="/todolist/showToDoList">toDoList</a></li>
+                  <li><a title="notes" href="/notes/showNoteList">notes</a></li>
+                  <li><a title="Person ToDoList" href="/todolist/showPersonToDoList">personToDoList</a></li>
+                  <li><a title="weeklyReport" href="/">weeklyReport</a></li>
+                <% } %>
+            </ui>
+        </div>
+    </div>
+</div>
+<!-- <br><br><br> -->

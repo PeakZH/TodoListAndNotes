@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %></title>
+  
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" /> 
+<!--  <link rel="stylesheet" href="/bootstrap/css/darkstrap.min.css" /> -->
+  <link rel="stylesheet" href="/bootstrap/css/sb-admin.css" />  
+  
+  <link rel="stylesheet" type="text/css" href="/stylesheets/jquery-common-dist.css">
+
+    
+  <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-ui-1.8.13.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+  
+  <script type="text/javascript" src="/js/jquery.messagebox.min.js"></script>
+  
+  
+  <script type="text/javascript" src="/js/common.js"></script>
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div id="wrap">
+    <div id="tip" class="container">
+    <% if (result.tip) { %>
+      <div><%= result.tip %></div>
+    <% } %>
+    </div>
+

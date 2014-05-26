@@ -1,0 +1,131 @@
+<%- include ../comm/header %>
+<%- include ../comm/nav %>
+<script type="text/javascript" src="/js/jsdirectory/notelist-js.js"></script>
+<script type="text/javascript">
+function searchNote() {
+	var inputKeyWordStr = '';
+	var namespace = '';
+	var category = '';
+	
+	if(!$("#keyWords").val()){
+		inputKeyWordStr='';
+	}else
+		 inputKeyWordStr = $("#keyWords").val().trim();
+	
+	if(!$("#namespaceSearch").val()){
+		namespace='';
+	}else
+		namespace = $("#namespaceSearch").val().trim();
+	
+	if(!$("#categorySearch").val()){
+		category='';
+	}else
+		category = $("#categorySearch").val().trim();
+	
+	
+	//限制三个keyword
+	var keyWordStr = inputKeyWordStr.replace(/(\s+,)|(,\s+)/g,",");//调整中间含空格与，符号的格式
+	keyWordStr =  keyWordStr.replace(/(^\s+)|(\s+$)|(^,+)|(,+$)/g,"");//去掉首尾空格和，符号
+	keyWordStr =  keyWordStr.replace(/,+/g,",");//中间多个，替换为一个
+	
+	if(keyWordStr=='' && inputKeyWordStr != ''){
+		MessageBoxExt.alert("请输入正规的keyWord！");
+	    return;
+	}
+	if(inputKeyWordStr=='' && namespace==''&& category==''){
+		MessageBoxExt.alert("输入条件不足！");
+	    return;
+	}
+	
+	if(namespace!='')
+		$("#searchNameSpace").val(namespace);
+	if(category != '')
+		$("#searchCategory").val(category);
+	if(keyWordStr != ''){
+		$("#searchKeyWords").val(keyWordStr);
+		var keyWordArray = keyWordStr.split(',');
+		if(keyWordArray.length > 3){
+			MessageBoxExt.alert("请输入少于3个keyWord！");
+	    	return;
+		}
+	}
+	//alert(keyWordStr.length);
+  	$("form.form-search").submit();
+}
+</script>
+<div class="container" >
+  <div  >
+    <div  >
+      <div  >
+        <div >
+        <form class="well form-search" style="width:100%" method="get">
+          <input class="input-medium search-query" type="text" placeholder="key word(use ',')" id="keyWords" value="<%= (result.keyWords || "") %>" />
+          <input class="input-medium search-query" type="text" placeholder="namespace" id="namespaceSearch" value="<%= (result.namespace || "") %>" />
+          <input class="input-medium search-query" type="text" placeholder="category" id="categorySearch" value="<%= (result.category || "") %>" />
+          <input type="hidden" name="searchKeyWords" id="searchKeyWords"  />
+          <input type="hidden" name="searchNameSpace" id="searchNameSpace"  />
+          <input type="hidden" name="searchCategory" id="searchCategory" />
+          <button type="submit" class="btn btn-primary" onclick="searchNote();">查询</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <div  >
+    <div  >
+      <div  >
+        <div >
+          <table id="listResult" class="table table-hover">
+            <tbody>
+              <% result.NoteLists.forEach(function (notelist, index) { %>
+              <tr >
+                <td> 序号:<%= index + 1 %> &nbsp;&nbsp;&nbsp;&nbsp;标题:<%= notelist.title %>&nbsp;&nbsp;&nbsp;&nbsp;日期:<%= notelist.date %> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                namespace:<%= notelist.namespace %>&nbsp;&nbsp;&nbsp;&nbsp;category:<%= notelist.category %>&nbsp;&nbsp;&nbsp;&nbsp;更新日期：<%= notelist.modifyTime %><br><br>
+                  	<%- notelist.content %>
+                	<% if(result.editable) {%>
+                		<button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= notelist.id %> content='<%= notelist.content %>' title='<%= notelist.title %>' namespace='<%= notelist.namespace %>' category='<%= notelist.category %>' topflag='<%= notelist.topflag %>' >修改</button>
+                	<% } else { %>
+                		<button  type="button" class="btn btn-outline btn-warning btn-xs" action="view" porpertyId=<%= notelist.id %> content='<%= notelist.content %>' >view</button>
+                	<% }%>
+                	<p><p><p><br><p><p><p>
+                </td>
+              </tr>
+              
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel-body">
+    <button type="button" id="popAddList" class="btn btn-outline btn-primary">添加notelist</button>
+  </div>
+</div>
+<div id="addNoteBlock" style="display:none;">
+  <form id="addListForm" method="post">
+    <input type="hidden"  name="id" />
+    <span >
+    	title:<input type="text" placeholder="title" id="title" size="55" required="true" />
+    	<span id='spanDate'>date:<input type="text" placeholder="date" id="date" size="15" required="true" /></span>
+    	namespace:<input type="text" placeholder="yeepay.com" id="namespace" size="20" required="true" />
+    	category:<input type="text" placeholder="category" id="category" size="20" required="true" />
+    	rank:<input type="text" placeholder="rank" id="topflag" size="5" required="true" />
+    </span>
+    <textarea rows="18" placeholder="内容" id="content" required="true" class="form-control"></textarea>
+  </form>
+</div>
+<div id="editNoteBlock" style="display:none;">
+  <form id="editListForm" method="post">
+    <input type="hidden"  id="editId" name="id" />
+   <!-- <input type="text" placeholder="内容" name="content" required="true" class="form-control"/> -->
+    <textarea rows="18" placeholder="内容" id="editContent" required="true" class="form-control"></textarea>
+  </form>
+</div>
+<div id="viewNoteBlock" style="display:none;">
+ <textarea rows="18" id="viewContent"  readonly required="true" class="form-control"></textarea>
+</div>
+<%- include ../comm/footer %>
