@@ -17,3 +17,6 @@ or npm install --registry=http://registry.npm.taobao.org
 
 三 完成前面两步之后可以通过<br>
   http://localhost:8000/访问，默认不开启密码访问，只能本机访问（限制127.0.0.1的ip访问）
+
+<Strong>说明</Strong>
+目前页面部分todolist以及notes需要自己用html语法调整输出格式
