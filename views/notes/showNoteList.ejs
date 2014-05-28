@@ -30,11 +30,11 @@ function searchNote() {
 	
 	if(keyWordStr=='' && inputKeyWordStr != ''){
 		MessageBoxExt.alert("请输入正规的keyWord！");
-	    return;
+	    return false;
 	}
 	if(inputKeyWordStr=='' && namespace==''&& category==''){
 		MessageBoxExt.alert("输入条件不足！");
-	    return;
+	    return false;
 	}
 	
 	if(namespace!='')
@@ -46,11 +46,19 @@ function searchNote() {
 		var keyWordArray = keyWordStr.split(',');
 		if(keyWordArray.length > 3){
 			MessageBoxExt.alert("请输入少于3个keyWord！");
-	    	return;
+	    	return false;
 		}
+		for(var i=0;i<keyWordArray.length;i++){
+			if(keyWordArray[i].length<2){
+				MessageBoxExt.alert("每个keyWord不少于2个字符！");
+	    		return false;	
+			}
+		}
+		//todo，限制每个keyword长度 【3,10】
 	}
 	//alert(keyWordStr.length);
-  	$("form.form-search").submit();
+  	//$("form.form-search").submit();
+  	return true;
 }
 </script>
 <div class="container" >
@@ -65,7 +73,7 @@ function searchNote() {
           <input type="hidden" name="searchKeyWords" id="searchKeyWords"  />
           <input type="hidden" name="searchNameSpace" id="searchNameSpace"  />
           <input type="hidden" name="searchCategory" id="searchCategory" />
-          <button type="submit" class="btn btn-primary" onclick="searchNote();">查询</button>
+          <button type="submit" class="btn btn-primary" onclick="return searchNote();">查询</button>
         </form>
       </div>
     </div>
@@ -117,15 +125,5 @@ function searchNote() {
     </span>
     <textarea rows="18" placeholder="内容" id="content" required="true" class="form-control"></textarea>
   </form>
-</div>
-<div id="editNoteBlock" style="display:none;">
-  <form id="editListForm" method="post">
-    <input type="hidden"  id="editId" name="id" />
-   <!-- <input type="text" placeholder="内容" name="content" required="true" class="form-control"/> -->
-    <textarea rows="18" placeholder="内容" id="editContent" required="true" class="form-control"></textarea>
-  </form>
-</div>
-<div id="viewNoteBlock" style="display:none;">
- <textarea rows="18" id="viewContent"  readonly required="true" class="form-control"></textarea>
 </div>
 <%- include ../comm/footer %>

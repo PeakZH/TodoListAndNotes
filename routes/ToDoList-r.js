@@ -23,10 +23,16 @@ router
     .post('/addToDoList', function (req, res) {
       console.log("/addToDoList,params:%s", JSON.stringify(req.body));
 
-      ToDoList.add(req.body.namespace,req.body.content,function(){
+      var namespace = req.body.documentURL;
+      if(namespace.indexOf('Person')>-1)
+    	  namespace = settings.defaultPersonToDoNameSpace;
+      else
+    	  namespace = settings.defaultNameSpace;
+      
+      ToDoList.add(namespace,req.body.content,function(){
     	  console.log("add success");
       });
-      listToDoList(req.body.namespace,req, res);
+      listToDoList(namespace,req, res);
     });
 //
 router.post('/updateStatus', User.checkLogin);
@@ -36,7 +42,13 @@ router.post('/updateStatus', function (req, res) {
     ToDoList.updateStatus(req.body.id);
   }
   // show rules
-  listToDoList(req.body.namespace,req, res);
+  var namespace = req.body.documentURL;
+  if(namespace.indexOf('Person')>-1)
+	  namespace = settings.defaultPersonToDoNameSpace;
+  else
+	  namespace = settings.defaultNameSpace;
+  
+  listToDoList(namespace,req, res);
 });
 
 router.post('/updateContent', User.checkLogin);
@@ -46,7 +58,13 @@ router.post('/updateContent', function (req, res) {
     ToDoList.updateContent(req.body.id,req.body.content);
   }
   // show rules
-  listToDoList(req.body.namespace,req, res);
+  var namespace = req.body.documentURL;
+  if(namespace.indexOf('Person')>-1)
+	  namespace = settings.defaultPersonToDoNameSpace;
+  else
+	  namespace = settings.defaultNameSpace;
+  
+  listToDoList(namespace,req, res);
 });
 
 function listToDoList (namespace,req, res) {

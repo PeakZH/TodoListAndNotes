@@ -14,11 +14,6 @@ router.get('/showNoteList', function (req, res) {
   listNoteList(req, res);
 });
 
-router.get('/showPersonNoteList', User.checkLogin);
-router.get('/showPersonNoteList', function (req, res) {
-  listNoteList(req, res);
-});
-
 //
 router.post('/addNoteList', User.checkLogin);
 router
@@ -26,10 +21,16 @@ router
     	var date = new moment(req.body.date).format('YYYY-MM-DD');
     	
     	console.log("/addNoteList,params:%s,date:%s", JSON.stringify(req.body),date);
-      
+    	var nameSpace = req.body.namespace;
+    	if(!nameSpace)//默认帅选公司的笔记
+    		nameSpace = settings.defaultNameSpace;
+    	var category = req.body.category;
+    	if(!category)//默认
+    		category = settings.defaultCategory;
+    	
       NoteList.add(date,
-    		  req.body.namespace,
-    		  req.body.category,
+    		  namespace,
+    		  category,
     		  req.body.title,
     		  req.body.content,
     		  req.body.topflag,
@@ -68,7 +69,6 @@ router.post('/updateContent', function (req, res) {
 function listNoteList (req, res) {
 	
 	//var url_args = url.parse(req.url).query;
-	//var id = url.parse(url_args).id;
 	//console.log("/listNoteList,params:%s id:%d", JSON.stringify(url_args),req.param("id"));
 	
 	var paramId = req.param("id");
@@ -77,7 +77,7 @@ function listNoteList (req, res) {
 	var category = req.param("searchCategory");
 	//var noteListObj = new NoteList();
 	//if(!nameSpace)//默认帅选公司的笔记
-	//	nameSpace = 'yeepay';
+	//	nameSpace = settings.defaultNameSpace;
 
 	NoteList.query(paramId,paramKeyWords,nameSpace,category,
 			function (err, NoteLists) {

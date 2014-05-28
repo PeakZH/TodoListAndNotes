@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $("#popAddList").click(function () {
+	$("#content").val("");
     MessageBoxExt.popup("addListForm", {
       title : "todolist添加",
       //zIndex : 20000,
@@ -19,15 +20,12 @@ $(document).ready(function () {
   });//todo
   //
   $(".btn").filter(".btn-outline").filter(".btn-warning").filter(".btn-xs").click(function () {
-	var namespace = 'yeepay.com';
-	if(document.URL.indexOf('Person')>-1)
-		namespace = 'person';
-		
+	 documentURL = document.URL;//用来区分，私人todolist，还是公司的todolist
 	 if($(this).attr('action')==='edit')
-		 updateContent(namespace,$(this).attr('porpertyId'),$(this).attr('content'));
+		 updateContent(documentURL,$(this).attr('porpertyId'),$(this).attr('content'));
 		  
 	 if($(this).attr('action')==='done')
-		 updateStatus(namespace,$(this).attr('porpertyId'));  
+		 updateStatus(documentURL,$(this).attr('porpertyId'));  
   });
 });
 function addToDoList () {
@@ -35,9 +33,6 @@ function addToDoList () {
 	    MessageBoxExt.alert("请输入todolist内容！");
 	    return;
 	}
-	var namespace = 'yeepay.com';
-	if(document.URL.indexOf('Person')>-1)
-		namespace = 'person';
 	
 	MessageBoxExt.confirm("确认添加todolist？", function() {
 	  MessageBoxExt.ajax({
@@ -45,7 +40,7 @@ function addToDoList () {
 	    type : "post",
 	    style : "redirect",
 	    data : {
-	    	namespace:namespace,
+	    	documentURL:document.URL,
 	    	content : $("#content").val()
 	    },
 	    success : function (result) {
@@ -54,7 +49,7 @@ function addToDoList () {
 	  });
 	});
 }
-function updateStatus(namespace,id) {
+function updateStatus(documentURL,id) {
 	MessageBoxExt.confirm("确认修改todolist状态？", function() {
 	  MessageBoxExt.ajax({
 	    url : "/todolist/updateStatus",
@@ -62,7 +57,7 @@ function updateStatus(namespace,id) {
 	    style : "redirect",
 	    data : {
 	    	id : id,
-	    	namespace:namespace
+	    	documentURL:documentURL
 	    },
 	    success : function (result) {
 	      $(this).dialog("close");
@@ -70,7 +65,7 @@ function updateStatus(namespace,id) {
 	  });
 	});
 }
-function updateContent(namespace,id,content) {
+function updateContent(documentURL,id,content) {
 	$("input[name=id]").val(id);
 	$("#content").val(content);
     MessageBoxExt.popup("addListForm", {
@@ -88,7 +83,7 @@ function updateContent(namespace,id,content) {
             		    data : {
             		    	id : id,
             		    	content:$("#content").val(),
-            		    	namespace:namespace
+            		    	documentURL:documentURL
             		    },
             		    success : function (result) {
             		      $(this).dialog("close");
