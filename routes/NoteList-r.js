@@ -21,9 +21,9 @@ router
     	var date = new moment(req.body.date).format('YYYY-MM-DD');
     	
     	console.log("/addNoteList,params:%s,date:%s", JSON.stringify(req.body),date);
-    	var nameSpace = req.body.namespace;
-    	if(!nameSpace)//默认帅选公司的笔记
-    		nameSpace = settings.defaultNameSpace;
+    	var namespace = req.body.namespace;
+    	if(!namespace)//默认帅选公司的笔记
+    		namespace = settings.defaultNameSpace;
     	var category = req.body.category;
     	if(!category)//默认
     		category = settings.defaultCategory;
@@ -96,15 +96,26 @@ function listNoteList (req, res) {
     			  trueKeysArray = unique(trueKeysArray);
     			  //console.log("/listNoteList,trueKeysArray:%s", JSON.stringify(trueKeysArray));
     			  if(trueKeysArray && trueKeysArray.length>0){
-    				  for(var k=0;k<trueKeysArray.length;k++)
+    				  for(var k=0;k<trueKeysArray.length;k++){
     					  NoteLists[i].content = NoteLists[i].content.replace(new RegExp(trueKeysArray[k],"gm"),"<font color='red'>"+trueKeysArray[k]+"</font>");
+				  }
     			  }
           	  }
-    		  //NoteLists[i].content = getStrLimitByLen(NoteLists[i].content,500);//toLowerCase比较
     	  }
     	  //可以过滤内容长度显示
     	  else if(!req.param("id")){
-    		  NoteLists[i].content = getStrLimitByLen(NoteLists[i].content,500);
+				      //判断xmp标签有没有，要是有增加匹配
+    		  NoteLists[i].content = getStrLimitByLen(NoteLists[i].content,settings.NotesContentLengthLimit);
+				var preXmpArray = NoteLists[i].content.match(new RegExp("<xmp>","gmi"));
+			        var endXmpArray = NoteLists[i].content.match(new RegExp("</xmp>","gmi"));  
+				//console.log("%s, %s", JSON.stringify(preXmpArray),JSON.stringify(endXmpArray));
+
+				if(preXmpArray && preXmpArray.length==1 && ( !endXmpArray ||endXmpArray && endXmpArray.length==0)){
+				    NoteLists[i].content = NoteLists[i].content + " </xmp>";
+				}
+				if((!preXmpArray || preXmpArray && preXmpArray.length==0 )&&  endXmpArray && endXmpArray.length==1){
+				    NoteLists[i].content =  "<xmp> " + NoteLists[i].content;
+				}
     	  }
 
       }

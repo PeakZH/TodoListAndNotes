@@ -7,27 +7,17 @@
       <div  >
         <div >
           <table id="listResult" class="table table-hover">
-            <thead>
-              <tr>
-              	<th>序号</th>
-                <th>内容</th>
-              <!--  <th>状态</th> -->
-               <!-- <th>修改时间</th> -->
-                <th>创建时间</th>
-              <!--  <th>操作</th> -->
-              </tr>
-            </thead>
             <tbody>
               <% result.todolists.forEach(function (todolist, index) { %>
               <tr >
-              	<td><%= index+1 %></td>
-                <td><%- todolist.content %>
+                <td>
+		序号:<%= index+1 %> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;创建时间:<%= todolist.createTime %><br><br>
+		<%- todolist.content %>
 	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= todolist.id %> >DONE</button>
 	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= todolist.id %> content='<%= todolist.content %>' >修改</button>
                 </td>
               <!--  <td><%= todolist.status %></td> -->
               <!--  <td><%= todolist.modifyTime %></td> -->
-                <td><%= todolist.createTime %></td>
              <!--   <td>
                 <button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= todolist.id %> >DONE</button>
                 <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= todolist.id %> content='<%= todolist.content %>' >修改</button>

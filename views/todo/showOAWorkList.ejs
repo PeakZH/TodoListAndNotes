@@ -7,24 +7,15 @@
       <div  >
         <div >
           <table id="listResult" class="table table-hover">
-            <thead>
-              <tr>
-              	<th>序号</th>
-                <th>内容</th>
-              <!--  <th>状态</th> -->
-                <th>创建时间</th>
-              </tr>
-            </thead>
             <tbody>
               <% result.OAWorkLists.forEach(function (OAWorkList, index) { %>
               <tr >
-              	<td><%= index+1 %></td>
-                <td><%- OAWorkList.content %>
+              	<td>序号:<%= index+1 %> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;创建时间:<%= OAWorkList.createTime %><br><br>
+		<%- OAWorkList.content %>
                  	<button  type="button" class="btn btn-outline btn-warning btn-xs" action="done" porpertyId=<%= OAWorkList.id %> >DONE</button>
 	                <button  type="button" class="btn btn-outline btn-warning btn-xs" action="edit" porpertyId=<%= OAWorkList.id %> content='<%= OAWorkList.content %>' >修改</button>
                 </td>
              <!--   <td><%= OAWorkList.status %></td> -->
-                <td><%= OAWorkList.createTime %></td>
               </tr>
               <% }) %>
             </tbody>

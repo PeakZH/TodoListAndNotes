@@ -6,6 +6,7 @@ module.exports = {
     defaultCategory : 'daily notes',
     defaultOACompany: 'yeepay.com',
     defaultPersonToDoNameSpace: 'person',
+    NotesContentLengthLimit:500,
     mongodb : {
       db : 'yeenode',
       host : 'localhost',
