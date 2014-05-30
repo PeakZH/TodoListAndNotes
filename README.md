@@ -20,6 +20,6 @@ or npm install --registry=http://registry.npm.taobao.org
 
 
 
-<Strong>使用说明</Strong>
+<Strong>使用说明</Strong><br>
 目前页面部分todolist以及notes需要自己用html语法调整输出格式
 为了显示格式化文字或者代码，可以使用pre 或者 xmp（最好）标签
