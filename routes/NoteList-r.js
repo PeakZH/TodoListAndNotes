@@ -24,9 +24,11 @@ router
     	var namespace = req.body.namespace;
     	if(!namespace)//默认帅选公司的笔记
     		namespace = settings.defaultNameSpace;
+    	namespace = namespace.trim();
     	var category = req.body.category;
     	if(!category)//默认
     		category = settings.defaultCategory;
+    	category = category.trim();
     	
       NoteList.add(date,
     		  namespace,
@@ -40,16 +42,6 @@ router
       
       listNoteList(req, res);
     });
-//
-router.post('/updateStatus', User.checkLogin);
-router.post('/updateStatus', function (req, res) {
-  console.log("/updateStatus,params:%s", JSON.stringify(req.body));
-  if (req.body.id) {
-    NoteList.updateStatus(req.body.id);
-  }
-  // show rules
-  listNoteList(req, res);
-});
 
 router.post('/updateContent', User.checkLogin);
 router.post('/updateContent', function (req, res) {
@@ -57,8 +49,8 @@ router.post('/updateContent', function (req, res) {
   if (req.body.id) {
     NoteList.updateContent(req.body.id,
     		req.body.title,
-    		req.body.namespace,
-    		req.body.category,
+    		req.body.namespace.trim(),
+    		req.body.category.trim(),
     		req.body.topflag,
     		req.body.content);
   }

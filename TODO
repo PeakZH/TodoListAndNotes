@@ -1,8 +1,8 @@
  TODO:
+  0 add week report for yeepay
   1 add web api for android(rest api?)
   2 add a shell script for backup files in kuaipan
   3 search todo list function
-  4 category 分类模块
  
   bug:
   1.使用密码登陆时，页面有操作session还过期

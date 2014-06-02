@@ -7,8 +7,7 @@
 notes or todolist可以输入html标签
 特殊标签：xmp标签，pre标签可以格式化段落
 
-展示note的namespace和category，并进行维护
-并搜索note笔记
+展示note的namespace和category统计信息，按月统计日志数量
 </pre>
 
 <div class="container" >
@@ -17,47 +16,52 @@ notes or todolist可以输入html标签
       <div  >
         <div >
           <table id="listResult" class="table table-hover">
-            <thead>
-              <tr>
-              	<th>序号</th>
-                <th>namespace</th>
-                <th>category</th>
-              </tr>
-            </thead>
             <tbody>
-              <% result.categorys.forEach(function (category, index) { %>
-              <tr >
-              	<td><%= index+1 %></td>
-                <td><%= category.namespace %></td>
-                <td><%= category.category %></td>
+	      <tr><td><h4>一.日志分类统计:</h4></td></tr>
+              <% for(var index=0;index < result.categorys.length;index++) { %>
+	      <tr>
+		  <td>namespace:<font color="red"><%= result.categorys[index].namespace %></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          日志分类数:<%= result.categorys[index].data.length %>
+	      </td> 
+	      </tr>
+              <tr >		
+		  <td>
+		  <% for(var i=0;i < result.categorys[index].data.length;i++) { %>
+                     <%= result.categorys[index].data[i].category %>(<%= result.categorys[index].data[i].count %>)&nbsp;&nbsp;&nbsp;
+                  <% }%>
+		  </td>
               </tr>
-              <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+          <table class="table table-hover">
+            <tbody>
+		    <tr> <td><h4>二.每月笔记数量:</h4></td></tr>
+		    <tr><td>
+              <% result.countByMonth.forEach(function(data,index) { %>
+		    <%=data.month %>(<%=data.count %>)&nbsp;&nbsp;&nbsp;
+	      <% })%>
+	      </td></tr>
+	    </tbody>
+	 </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div  >
+    <div  >
+      <div  >
+        <div >
+          <table id="listResult" class="table table-hover">
+            <tbody>
+             
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row" style="display:none;">
-  <div class="panel-body">
-    <button type="button" id="popAddCategory" class="btn btn-outline btn-primary">添加分类</button>
-  </div>
-</div>
-<div id="addCategoryBlock" style="display:none;">
-  <form id="addRuleForm" method="post">
-    <%/*
-    <div class="form-heading">
-      <h2>笔记分类</h2>
-    </div>
-    */%>
-    <input type="text" placeholder="namespace" name="namespace" required="true" class="form-control"/>
-    <input type="text" placeholder="category" name="category" required="true" class="form-control"/>
- 	<!-- <button type="button" id="addRule" class="btn btn-lg btn-primary btn-block">添加</button> -->
-    <div id="result">
-      <%= (result.result || "") %>
-    </div>
-  </form>
 </div>
 
 </div>

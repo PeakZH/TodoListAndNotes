@@ -12,6 +12,91 @@ function NoteList (id, title,content,date,modifyTime, createTime,topflag) {
 
 module.exports = NoteList;
 
+NoteList.queryByMonth = function (callback) {
+	  // 打开数据库
+	  pool
+	      .getConnection(function (err, conn) {
+	        if (err) {
+	          console.error(err);
+	          conn.release();
+	          return callback(err);
+	        }
+	        var sql = "select DATE_FORMAT(date,'%Y-%m')        as month,\
+		                  count(DATE_FORMAT(date,'%Y-%m')) as count \
+		           from TBL_RF_NOTE_LIST                            \
+		           group by month ";
+	        
+	        //console.log("sql is:%s id is:%d",JSON.stringify(sql),id);
+	        conn.query(sql,function (err, rows) {
+	          if (err || !rows || rows.length < 1) {
+	            console.error(err);
+	            conn.release();
+	            callback(err, null);
+	          } else {
+	            conn.release();
+	           //  console.log("rows is:%s",JSON.stringify(rows));
+	            callback(null, rows);
+	          }
+	        });
+	      });
+	};
+
+
+NoteList.queryNameSpace = function (callback) {
+	  // 打开数据库
+	  pool
+	      .getConnection(function (err, conn) {
+	        if (err) {
+	          console.error(err);
+	          conn.release();
+	          return callback(err);
+	        }
+	        var sql = "select distinct namespace from TBL_RF_NOTE_LIST ";
+	        
+	        //console.log("sql is:%s id is:%d",JSON.stringify(sql),id);
+	        conn.query(sql,function (err, rows) {
+	          if (err || !rows || rows.length < 1) {
+	            console.error(err);
+	            conn.release();
+	            callback(err, null);
+	          } else {
+	            conn.release();
+	           //  console.log("rows is:%s",JSON.stringify(rows));
+	            callback(null, rows);
+	          }
+	        });
+	      });
+	};
+
+NoteList.queryCategory = function (callback) {
+	  // 打开数据库
+	  pool
+	      .getConnection(function (err, conn) {
+	        if (err) {
+	          console.error(err);
+	          conn.release();
+	          return callback(err);
+	        }
+		var sql = "select  namespace, category,count(category) as count \
+				from TBL_RF_NOTE_LIST 	where namespace in(             \
+					select     distinct namespace from TBL_RF_NOTE_LIST )\
+				group by category,namespace order by namespace";
+	        
+	        //console.log("sql is:%s",JSON.stringify(sql));
+	        conn.query(sql,function (err, rows) {
+	          if (err || !rows || rows.length < 1) {
+	            console.error(err);
+	            conn.release();
+	            callback(err, null);
+	          } else {
+	            conn.release();
+	            console.log("rows is:%s",JSON.stringify(rows));
+	            callback(null, rows);
+	          }
+	        });
+	      });
+	};
+	
 NoteList.query = function (id,paramKeyWords,nameSpace,category,callback) {
   // 打开数据库
   pool
