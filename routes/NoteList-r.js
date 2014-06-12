@@ -98,6 +98,18 @@ function listNoteList (req, res) {
     	  else if(!req.param("id")){
 				      //判断xmp标签有没有，要是有增加匹配
     		  NoteLists[i].content = getStrLimitByLen(NoteLists[i].content,settings.NotesContentLengthLimit);
+		  
+		  var begPreArray = NoteLists[i].content.match(new RegExp("<pre>","gmi"));
+			        var endPreArray = NoteLists[i].content.match(new RegExp("</pre>","gmi"));  
+				//console.log("%s, %s", JSON.stringify(preXmpArray),JSON.stringify(endXmpArray));
+
+				if(begPreArray && begPreArray.length==1 && ( !endPreArray ||endPreArray && endPreArray.length==0)){
+				    NoteLists[i].content = NoteLists[i].content + " </pre>";
+				}
+				if((!begPreArray || begPreArray && begPreArray.length==0 )&&  endPreArray && endPreArray.length==1){
+				    NoteLists[i].content =  "<pre> " + NoteLists[i].content;
+				}
+
 				var preXmpArray = NoteLists[i].content.match(new RegExp("<xmp>","gmi"));
 			        var endXmpArray = NoteLists[i].content.match(new RegExp("</xmp>","gmi"));  
 				//console.log("%s, %s", JSON.stringify(preXmpArray),JSON.stringify(endXmpArray));

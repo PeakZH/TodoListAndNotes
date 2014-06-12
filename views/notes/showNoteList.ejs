@@ -87,7 +87,7 @@ function searchNote() {
             <tbody>
               <% result.NoteLists.forEach(function (notelist, index) { %>
               <tr >
-                <td> 序号:<%= index + 1 %> &nbsp;&nbsp;&nbsp;&nbsp;标题:<%= notelist.title %>&nbsp;&nbsp;&nbsp;&nbsp;日期:<%= notelist.date %> 
+                <td> 序号:<%= index + 1 %> &nbsp;&nbsp;&nbsp;&nbsp;标题:<%- notelist.title %>&nbsp;&nbsp;&nbsp;&nbsp;日期:<%= notelist.date %> 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 namespace:<%= notelist.namespace %>&nbsp;&nbsp;&nbsp;&nbsp;category:<%= notelist.category %>&nbsp;&nbsp;&nbsp;&nbsp;更新日期：<%= notelist.modifyTime %><br><br>
                   	<%- notelist.content %>
