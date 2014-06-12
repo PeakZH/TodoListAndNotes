@@ -27,3 +27,7 @@ or npm install --registry=http://registry.npm.taobao.org
      
 目前页面部分todolist以及notes需要自己用html语法调整输出格式
 为了显示格式化文字或者代码，可以使用pre 或者 xmp（最好）标签
+
+
+###效果图
+![picture](https://raw.githubusercontent.com/xrfinbupt/TodoListAndNotes/master/doc/main%20menu.png)
