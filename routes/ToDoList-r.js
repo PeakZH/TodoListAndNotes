@@ -68,7 +68,7 @@ router.post('/updateContent', function (req, res) {
 });
 
 function listToDoList (namespace,req, res) {
-	ToDoList.query(namespace,function (err, todolists) {
+	ToDoList.query(namespace,null,function (err, todolists) {
     if (!err && todolists) {
       for (var i = 0; i < todolists.length; i++) {// 页面日期显示格式化
     	  todolists[i].createTime = new moment(todolists[i].createTime).format('YYYY-MM-DD HH:mm:ss');

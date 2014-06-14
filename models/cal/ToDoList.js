@@ -10,7 +10,7 @@ function ToDoList (id, content, status, modifyTime, createTime) {
 
 module.exports = ToDoList;
 
-ToDoList.query = function (namespace,callback) {
+ToDoList.query = function (namespace,id,callback) {
   // 打开数据库
   pool
       .getConnection(function (err, conn) {
@@ -25,10 +25,16 @@ ToDoList.query = function (namespace,callback) {
           MODIFY_TIME    as modifyTime,  \
           CREATE_TIME    as createTime   \
         from TBL_RF_TODO_LIST            \
-        where status='init'              \
-        and namespace = ?     \
-        order by CREATE_TIME";
-        conn.query(sql,[namespace], function (err, rows) {
+        where status='init'";
+        
+	var sqlfoot = " order by CREATE_TIME";
+	
+	if(namespace) sql = sql + " and namespace='"+namespace + "' ";
+	if(id) sql =sql  + " and id="+id + " ";
+        
+	sql = sql + sqlfoot;
+         console.log("sql is:%s",sql);
+        conn.query(sql, function (err, rows) {
           if (err || !rows || rows.length < 1) {
             console.error(err);
             conn.release();
