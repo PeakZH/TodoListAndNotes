@@ -19,7 +19,10 @@ or npm install --registry=http://registry.npm.taobao.org
   http://localhost:8000/访问，默认不开启密码访问，只能本机访问（限制127.0.0.1的ip访问）
 
 
-
+四 api服务启动<br>
+  node api.js or supervisor api.js for debug<br>
+  目前提供了todolist的CRUD基本功能，api返回结果格式是json
+  
 <Strong>使用说明</Strong><br>
 <font color="red"><strong>这个系统能解决什么问题or目的</strong></font>：<br>
      1 这个系统是我自己开发来管理记录琐碎的事情的：oa上线流程跟踪，开发各种业务之间交互的沟通，各个系统调用，新需求的叠加，未来任务排期等等，最主要的是工作期间老被打断，（以前我也用wps文档记录各种琐碎的事情，后来发现时间越长，这个系统价值越高）。<br>
