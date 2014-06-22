@@ -4,25 +4,31 @@
 <script type="text/javascript">
 function searchNote() {
 	var inputKeyWordStr = '';
-	var namespace = '';
+	var nameSpace = '';
 	var category = '';
-	
+	var dateStart = '';
+	var dateEnd = '';
+
 	if(!$("#keyWords").val()){
 		inputKeyWordStr='';
 	}else
 		 inputKeyWordStr = $("#keyWords").val().trim();
 	
-	if(!$("#namespaceSearch").val()){
-		namespace='';
+	if(!$("#nameSpaceSearch").val()){
+		nameSpace='';
 	}else
-		namespace = $("#namespaceSearch").val().trim();
+		nameSpace = $("#nameSpaceSearch").val().trim();
 	
 	if(!$("#categorySearch").val()){
 		category='';
 	}else
 		category = $("#categorySearch").val().trim();
 	
+	if($("#dateStart").val())
+		dateStart = $("#dateStart").val().trim();
 	
+	if($("#dateEnd").val())
+		dateEnd = $("#dateEnd").val().trim();
 	//限制三个keyword
 	var keyWordStr = inputKeyWordStr.replace(/(\s+,)|(,\s+)/g,",");//调整中间含空格与，符号的格式
 	keyWordStr =  keyWordStr.replace(/(^\s+)|(\s+$)|(^,+)|(,+$)/g,"");//去掉首尾空格和，符号
@@ -32,13 +38,13 @@ function searchNote() {
 		MessageBoxExt.alert("请输入正规的keyWord！");
 	    return false;
 	}
-	if(inputKeyWordStr=='' && namespace==''&& category==''){
+	if(inputKeyWordStr=='' && nameSpace==''&& category==''){
 		MessageBoxExt.alert("输入条件不足！");
 	    return false;
 	}
 	
-	if(namespace!='')
-		$("#searchNameSpace").val(namespace);
+	if(nameSpace!='')
+		$("#searchNameSpace").val(nameSpace);
 	if(category != '')
 		$("#searchCategory").val(category);
 	if(keyWordStr != ''){
@@ -58,6 +64,11 @@ function searchNote() {
 	}
 	//alert(keyWordStr.length);
   	//$("form.form-search").submit();
+	if(dateStart!='')
+		$("#searchDateStart").val(dateStart);
+
+	if(dateEnd!='')
+		$("#searchDateEnd").val(dateEnd);
   	return true;
 }
 </script>
@@ -68,11 +79,16 @@ function searchNote() {
         <div >
         <form class="well form-search" style="width:100%" method="get">
           <input class="input-medium search-query" type="text" placeholder="key word(use ',')" id="keyWords" value="<%= (result.keyWords || "") %>" />
-          <input class="input-medium search-query" type="text" placeholder="namespace" id="namespaceSearch" value="<%= (result.namespace || "") %>" />
+          <input class="input-medium search-query" type="text" placeholder="nameSpace" id="nameSpaceSearch" value="<%= (result.nameSpace || "") %>" />
           <input class="input-medium search-query" type="text" placeholder="category" id="categorySearch" value="<%= (result.category || "") %>" />
+	  <input class="input-medium search-query" type="text" placeholder="dateStart" id="dateStart" value="<%= (result.dateStart || "") %>" />
+	  <input class="input-medium search-query" type="text" placeholder="dateEnd" id="dateEnd" value="<%= (result.dateEnd || "") %>" />
           <input type="hidden" name="searchKeyWords" id="searchKeyWords"  />
           <input type="hidden" name="searchNameSpace" id="searchNameSpace"  />
           <input type="hidden" name="searchCategory" id="searchCategory" />
+	  <input type="hidden" name="searchDateStart" id="searchDateStart"  />
+          <input type="hidden" name="searchDateEnd" id="searchDateEnd"  />
+
           <button type="submit" class="btn btn-primary" onclick="return searchNote();">查询</button>
         </form>
       </div>
@@ -87,7 +103,7 @@ function searchNote() {
             <tbody>
               <% result.NoteLists.forEach(function (notelist, index) { %>
               <tr >
-                <td> 序号:<%= index + 1 %> &nbsp;&nbsp;&nbsp;&nbsp;标题:<%- notelist.title %>&nbsp;&nbsp;&nbsp;&nbsp;日期:<%= notelist.date %> 
+                <td> 序号:<%= index + 1 %> &nbsp;&nbsp;&nbsp;&nbsp;标题:<a href="showNoteList?id=<%=notelist.id %>" target="_blank"><%- notelist.title %></a>&nbsp;&nbsp;&nbsp;&nbsp;日期:<%= notelist.date %> 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 namespace:<%= notelist.namespace %>&nbsp;&nbsp;&nbsp;&nbsp;category:<%= notelist.category %>&nbsp;&nbsp;&nbsp;&nbsp;更新日期：<%= notelist.modifyTime %><br><br>
                   	<%- notelist.content %>

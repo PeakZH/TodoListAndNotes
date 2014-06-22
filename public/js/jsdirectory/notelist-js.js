@@ -1,5 +1,7 @@
 $(document).ready(function () {
     DatePickerExt.date("date",{"maxDate":0});
+    DatePickerExt.date("dateStart",{"maxDate":0});
+    DatePickerExt.date("dateEnd",{"maxDate":0});
   $("#popAddList").click(function () {
 	$("#spanDate").show();
 	//$("#id").val("");

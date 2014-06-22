@@ -97,7 +97,7 @@ NoteList.queryCategory = function (callback) {
 	      });
 	};
 	
-NoteList.query = function (id,paramKeyWords,nameSpace,category,callback) {
+NoteList.query = function (id,paramKeyWords,nameSpace,category,dateStart,dateEnd,callback) {
   // 打开数据库
   pool
       .getConnection(function (err, conn) {
@@ -124,21 +124,27 @@ NoteList.query = function (id,paramKeyWords,nameSpace,category,callback) {
         		sqlextra = sqlextra + " and upper(CONTENT) like upper('%" + keys[i]+ "%') ";
         	}
         	sql = sql +sqlextra;
-        	console.log("sql is:%s ",sql);
+        //	console.log("sql is:%s ",sql);
         }
         
         if(id)
-        	sql = sql + " and id = ? ";
+        	sql = sql + " and id ="+id;
         
         if(nameSpace)
         	sql = sql + " and namespace like " + "'%"+nameSpace+"%'";
+        
+	if(dateStart)
+        	sql = sql + " and date >= " + "'"+dateStart+"'";
+        if(dateEnd)
+        	sql = sql + " and date <= " + "'"+dateEnd+"'";
 
         if(category)
         	sql = sql + " and category like " + "'%"+category+"%'";
         
         sql = sql + sqlfoot;
-        //console.log("sql is:%s id is:%d",JSON.stringify(sql),id);
-        conn.query(sql,[id], function (err, rows) {
+        
+	//console.log("sql is:%s id is:%d",JSON.stringify(sql),id);
+        conn.query(sql, function (err, rows) {
           if (err || !rows || rows.length < 1) {
             console.error(err);
             conn.release();

@@ -67,11 +67,24 @@ function listNoteList (req, res) {
 	var paramKeyWords = req.param("searchKeyWords");
 	var nameSpace = req.param("searchNameSpace");
 	var category = req.param("searchCategory");
+	var dateStart = req.param("searchDateStart");
+	var orgStartDate=dateStart;
+	var dateEnd = req.param("searchDateEnd");
+	var orgEndDate=dateEnd;
 	//var noteListObj = new NoteList();
 	//if(!nameSpace)//默认帅选公司的笔记
 	//	nameSpace = settings.defaultNameSpace;
+	if(dateStart){
+	    var dateStr = dateStart.split("/");
+	    dateStart = dateStr[2] + "-" + dateStr[0] + "-" + dateStr[1];
+	}
 
-	NoteList.query(paramId,paramKeyWords,nameSpace,category,
+	if(dateEnd){
+	    var dateStr = dateEnd.split("/");
+	    dateEnd = dateStr[2] + "-" + dateStr[0] + "-" + dateStr[1];
+	}
+
+	NoteList.query(paramId,paramKeyWords,nameSpace,category,dateStart,dateEnd,
 			function (err, NoteLists) {
 	  if (!err && NoteLists) {
          for (var i = 0; i < NoteLists.length; i++) {// 页面日期显示格式化
@@ -127,12 +140,17 @@ function listNoteList (req, res) {
     } else
     	NoteLists = [];
 
-    // console.log("query NoteLists:%s",JSON.stringify(NoteLists));
+     console.log("query NoteLists: keywords%s",paramKeyWords);
     res.render('./notes/showNoteList', {
       title : 'showNoteList',
       user : User.getSessionUser(req),
       result : merge(req.body, {
     	  NoteLists : NoteLists,
+          keyWords :paramKeyWords,
+          nameSpace :nameSpace,
+          category :category,
+          dateStart :orgStartDate,
+          dateEnd :orgEndDate,
     	  editable:req.param("id")
       })
     });
