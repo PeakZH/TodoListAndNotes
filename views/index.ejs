@@ -17,11 +17,11 @@ notes or todolist可以输入html标签
         <div >
           <table id="listResult" class="table table-hover">
             <tbody>
-	      <tr><td><h4>一.日志分类统计:</h4></td></tr>
+	      <tr><td><h4>一.日志分类统计:(共<%=result.notesSum %>篇)</h4></td></tr>
               <% for(var index=0;index < result.categorys.length;index++) { %>
 	      <tr>
 		  <td>namespace:<font color="red"><%= result.categorys[index].namespace %></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          日志分类数:<%= result.categorys[index].data.length %>
+	          日志分类数:<%= result.categorys[index].data.length %>(共<%=result.categorys[index].categoryNotesSum %>篇)
 	      </td> 
 	      </tr>
               <tr >		
@@ -36,7 +36,7 @@ notes or todolist可以输入html标签
           </table>
           <table class="table table-hover">
             <tbody>
-		    <tr> <td><h4>二.每月笔记数量:</h4></td></tr>
+		    <tr> <td><h4>二.每月笔记数量:(共<%=result.notesSum %>篇)</h4></td></tr>
 		    <tr><td>
               <% result.countByMonth.forEach(function(data,index) { %>
 		    <%=data.month %>(<%=data.count %>)&nbsp;&nbsp;&nbsp;
