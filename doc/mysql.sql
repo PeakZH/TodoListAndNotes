@@ -65,3 +65,22 @@ CREATE TABLE
         CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id)
     );
+    
+    
+    
+    -----初始化系统
+    
+    insert into tbl_rf_todo_list (id, CONTENT, status, MODIFY_TIME, CREATE_TIME, namespace) values (1, 'test todolist', 'init', '2014-07-27 10:45:46', '2014-07-27 10:45:47', 'yeepay.com');
+insert into tbl_rf_todo_list (id, CONTENT, status, MODIFY_TIME, CREATE_TIME, namespace) values (2, 'test todolist', 'init', '2014-07-27 10:47:25', '2014-07-27 10:47:25', 'person');
+
+
+insert into tbl_rf_oa_list (id, namespace, CONTENT, status, CREATE_TIME) values (1, 'yeepay.com', 'test oa', 'init', '2014-07-27 10:45:33');
+
+insert into tbl_rf_note_list (id, title, DATE, CONTENT, namespace, category, TOPFLAG, MODIFY_TIME, CREATE_TIME) values (1, 'test', '2014-07-27', 'hello <font color="red">world</font>
+<pre>
+first row
+second row
+</pre>
+', 'yeepay.com', 'test', 0, '2014-07-27 10:46:53', '2014-07-27 10:46:30');
+
+
