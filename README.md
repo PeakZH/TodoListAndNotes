@@ -4,7 +4,7 @@ TodoListAndNotes
 
 local todolist and  notes web application using node.js
 
-一 环境准备<BR>
+一 环境准备(目前已在ubuntu，mac系统中测试通过)<BR>
 1 mysql安装<br>
 2 用doc目录下的sql建表<br>
 3 配置settings.js文件：mysql访问地址以及密码，database，以及一些缺省的值<br>
