@@ -16,7 +16,7 @@ module.exports = {
       auto_reconnect: true
     },
    mysqldb : {
-      host : 'localhost',
+      host : '127.0.0.1',
       user : 'root',
       password : 'root',
       database : 'node',
