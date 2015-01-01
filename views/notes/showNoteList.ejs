@@ -3,11 +3,17 @@
 <script type="text/javascript" src="/js/jsdirectory/notelist-js.js"></script>
 <script type="text/javascript">
 function searchNote() {
+	var title = '';
 	var inputKeyWordStr = '';
 	var nameSpace = '';
 	var category = '';
 	var dateStart = '';
 	var dateEnd = '';
+
+	if(!$("#“title”").val()){
+		title='';
+	}else
+		 title = $("#“title”").val().trim();
 
 	if(!$("#keyWords").val()){
 		inputKeyWordStr='';
@@ -38,11 +44,13 @@ function searchNote() {
 		MessageBoxExt.alert("请输入正规的keyWord！");
 	    return false;
 	}
-	if(inputKeyWordStr=='' && nameSpace==''&& category==''){
+	if(title=='' && inputKeyWordStr=='' && nameSpace==''&& category==''){
 		MessageBoxExt.alert("输入条件不足！");
 	    return false;
 	}
-	
+
+	if(title!='')
+		$("#searchTitle").val(title);
 	if(nameSpace!='')
 		$("#searchNameSpace").val(nameSpace);
 	if(category != '')
@@ -78,11 +86,13 @@ function searchNote() {
       <div  >
         <div >
         <form class="well form-search" style="width:100%" method="get">
-          <input class="input-medium search-query" type="text" placeholder="key word(use ',')" id="keyWords" value="<%= (result.keyWords || "") %>" />
+          <input class="input-medium search-query" type="text" placeholder="title" id=“title” value="<%= (result.title || "") %>" />
+          <input class="input-medium search-query" type="text" placeholder="content keyword(,)" id="keyWords" value="<%= (result.keyWords || "") %>" />
           <input class="input-medium search-query" type="text" placeholder="nameSpace" id="nameSpaceSearch" value="<%= (result.nameSpace || "") %>" />
           <input class="input-medium search-query" type="text" placeholder="category" id="categorySearch" value="<%= (result.category || "") %>" />
 	  <input class="input-medium search-query" type="text" placeholder="dateStart" id="dateStart" value="<%= (result.dateStart || "") %>" />
 	  <input class="input-medium search-query" type="text" placeholder="dateEnd" id="dateEnd" value="<%= (result.dateEnd || "") %>" />
+          <input type="hidden" name="searchTitle" id="searchTitle"  />
           <input type="hidden" name="searchKeyWords" id="searchKeyWords"  />
           <input type="hidden" name="searchNameSpace" id="searchNameSpace"  />
           <input type="hidden" name="searchCategory" id="searchCategory" />

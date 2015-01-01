@@ -97,7 +97,7 @@ NoteList.queryCategory = function (callback) {
 	      });
 	};
 	
-NoteList.query = function (id,paramKeyWords,nameSpace,category,dateStart,dateEnd,callback) {
+NoteList.query = function (id,title,paramKeyWords,nameSpace,category,dateStart,dateEnd,callback) {
   // 打开数据库
   pool
       .getConnection(function (err, conn) {
@@ -126,7 +126,9 @@ NoteList.query = function (id,paramKeyWords,nameSpace,category,dateStart,dateEnd
         	sql = sql +sqlextra;
         //	console.log("sql is:%s ",sql);
         }
-        
+        if(title)
+          sql = sql + " and title LIKE " + "'%"+title+"%'";
+
         if(id)
         	sql = sql + " and id ="+id;
         

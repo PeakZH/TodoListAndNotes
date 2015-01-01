@@ -61,9 +61,10 @@ router.post('/updateContent', function (req, res) {
 function listNoteList (req, res) {
 	
 	//var url_args = url.parse(req.url).query;
-	//console.log("/listNoteList,params:%s id:%d", JSON.stringify(url_args),req.param("id"));
+	//console.log("/listNoteList,xrf params:%s title:%s", JSON.stringify(url_args),req.param("title"));
 	
 	var paramId = req.param("id");
+  var title = req.param("searchTitle");
 	var paramKeyWords = req.param("searchKeyWords");
 	var nameSpace = req.param("searchNameSpace");
 	var category = req.param("searchCategory");
@@ -84,7 +85,7 @@ function listNoteList (req, res) {
 	    dateEnd = dateStr[2] + "-" + dateStr[0] + "-" + dateStr[1];
 	}
 
-	NoteList.query(paramId,paramKeyWords,nameSpace,category,dateStart,dateEnd,
+	NoteList.query(paramId,title,paramKeyWords,nameSpace,category,dateStart,dateEnd,
 			function (err, NoteLists) {
 	  if (!err && NoteLists) {
          for (var i = 0; i < NoteLists.length; i++) {// 页面日期显示格式化
@@ -140,12 +141,13 @@ function listNoteList (req, res) {
     } else
     	NoteLists = [];
 
-     console.log("query NoteLists: keywords%s",paramKeyWords);
+     console.log("query NoteLists: keywords:%s  title:%s",paramKeyWords,title);
     res.render('./notes/showNoteList', {
       title : 'showNoteList',
       user : User.getSessionUser(req),
       result : merge(req.body, {
     	  NoteLists : NoteLists,
+          title:title,
           keyWords :paramKeyWords,
           nameSpace :nameSpace,
           category :category,
