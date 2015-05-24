@@ -5,7 +5,7 @@ var merge = require('merge');
 var Category = require('../models/cal/Category');
 var NoteList = require('../models/cal/NoteList');
 
-router.get('/', User.checkLogin);
+//router.get('/', User.checkLogin);
 router.get('/', function (req, res) {
     if (User.getSessionUser(req)) {
     	NoteList.queryCategory(function(err,categorys){
@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
 	    var notesSum = 0;//笔记总数
 
 	    categorys.forEach(function(category,index){
-		//console.log("%s %d",category.namespace,index);
+		//console.log("namespace:%s %d",category.namespace,index);
 		notesSum += category.count;
 		if(namespaceArray.length ==0){
 		    namespaceArray[0]=category.namespace;
@@ -45,7 +45,7 @@ router.get('/', function (req, res) {
 		var countByMonth = [];
 	    	NoteList.queryByMonth(function(err,result){
 		    countByMonth=result;
-		    console.log("%s",JSON.stringify(countByMonth));
+		    //console.log("countByMonth %s",JSON.stringify(countByMonth));
 		    res.render('./index', {
 			title : 'index',
 			user : User.getSessionUser(req),

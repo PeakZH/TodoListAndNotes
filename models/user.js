@@ -82,14 +82,15 @@ User.checkLogin = function (req, res, next) {
 	}
 	console.info("session user is %s",JSON.stringify(req.session.user));
   }
-  else if(req.connection.remoteAddress == '127.0.0.1'){//限制本地ip
+  else{// if(req.connection.remoteAddress == '127.0.0.1' || 
+  //req.connection.remoteAddress  == '::1'){//限制本地ip
       console.log("call localhost");
       next();
   }
-  else{
+  /*else{
 	res.redirect('/user/login?returnurl='
 		+ encodeURIComponent(req.originalUrl)); 
-  }
+  }*/
 };
 
 User.checkNotLogin = function (req, res, next) {
