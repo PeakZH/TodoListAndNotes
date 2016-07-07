@@ -143,7 +143,12 @@ NoteList.query = function (id,title,paramKeyWords,nameSpace,category,dateStart,d
         if(category)
         	sql = sql + " and category like " + "'%"+category+"%'";
         
-        sql = sql + sqlfoot;
+        if(paramKeyWords || title || nameSpace || dateStart || category){
+          sql = sql + " order by TOPFLAG desc,date desc ";
+        }else{
+          sql = sql + sqlfoot;
+        }
+        
         
 	//console.log("sql is:%s id is:%d",JSON.stringify(sql),id);
         conn.query(sql, function (err, rows) {
